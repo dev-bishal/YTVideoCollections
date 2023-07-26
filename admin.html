@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/stylesheet.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        .modal .closeBtn {
+            transition: .5s;
+        }
+
+        .modal .closeBtn span {
+            height: 25px;
+            width: 3px;
+            background-color: #fff;
+            display: block;
+            position: absolute;
+
+        }
+
+        .modal .closeBtn span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .modal .closeBtn span:nth-child(2) {
+            transform: rotate(315deg);
+        }
+    </style>
+    <title>Watch this Video - By Bishal</title>
+</head>
+
+<body class="bg-gradient-to-r from-black to-[--bgColor] h-screen text-slate-50">
+    <div class="main-holder">
+        <header class="flex justify-center items-center w-full border-b border-[#1d2436]"
+            style="box-shadow: 0 0 9px 5px #1d2436;">
+            <div class="holder flex justify-center items-center w-full px-4 py-2">
+                <nav class="flex items-center justify-around w-full">
+                    <h2 class="font-bold text-[20px]">
+                        My Favorite Videos - Admin
+                    </h2>
+                </nav>
+            </div>
+        </header>
+        <main class="flex justify-center items-center w-full">
+            <div class="holder flex justify-center items-center w-full px-4 py-2 flex-col">
+                <div class="highlight flex justify-center flex-col my-3 px-2">
+                    <div
+                        class="vid cursor-pointer w-[100%] rounded-lg flex justify-center flex-col bg-[--vidBgColor] pb-3">
+                        <!-- Test Output Iframe will be here-->
+                    </div>
+                </div>
+
+                <div class="wrapper flex justify-center gap-3 items-center flex-wrap my-3 px-2 w-full lg:w-1/2">
+                    <div class="input-form flex justify-center flex-col w-full">
+                        <input id="vidTitle" type="text"
+                            class=" text-black rounded-[7px] px-[10px] py-[15px] mt-[10px] border-4" placeholder="Title"
+                            value="">
+                        <input id="vidUrl" type="text"
+                            class=" text-black rounded-[7px] px-[10px] py-[15px] mt-[10px] border-4"
+                            placeholder="YouTube URL" value="">
+                        <input id="vidcategory" type="text"
+                            class=" text-black rounded-[7px] px-[10px] py-[15px] mt-[10px] border-4"
+                            placeholder="Category" value="">
+                        <div class="btns flex gap-3 mt-[10px]">
+                            <button id="fetchBtn"
+                                class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Fetch</button>
+                            <button id="saveBtn"
+                                class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="flex justify-center items-center w-full mb-3">
+            <p class="py-2">Made with ❤ by Bishal Biswas.</p>
+        </footer>
+    </div>
+    <script src="assets/main.js"></script>
+    <script src="assets/BE.js"></script>
+    <script>
+        adminPageFunctions();
+        var APIObj = new GSheetAPICall();
+        var saveBtn = document.querySelector("#saveBtn");
+        saveBtn.addEventListener("click", () => {
+            var vidTitle = document.querySelector("#vidTitle").value;
+            var vidUrl = document.querySelector("#vidUrl").value;
+            var vidcategory = document.querySelector("#vidcategory").value;
+
+            if (vidTitle != "" || vidUrl != "" || vidcategory != "") {
+
+                if (vidUrl.includes("https://youtu.be/"))
+                    vidUrl = vidUrl.replace("https://youtu.be/", "");
+                else if (vidUrl.includes("https://www.youtube.com/watch?v="))
+                    vidUrl = vidUrl.replace("https://www.youtube.com/watch?v=", "");
+                else if (vidUrl.includes("https://youtube.com/watch?v="))
+                    vidUrl = vidUrl.replace("https://youtube.com/watch?v=", "");
+                else if (vidUrl.includes("https://youtube.com/shorts/"))
+                    vidUrl = vidUrl.replace("https://youtube.com/shorts/", "");
+                else if (vidUrl.includes("https://www.youtube.com/shorts/"))
+                    vidUrl = vidUrl.replace("https://www.youtube.com/shorts/", "");
+
+                if (vidUrl.includes("?feature=share"))
+                    vidUrl = vidUrl.replace("?feature=share", "");
+
+                console.log(vidTitle);
+                console.log(vidUrl);
+                console.log(vidcategory);
+
+                APIObj.GSheetAPICall_Insert(vidTitle, vidUrl, vidcategory);
+            }
+            else
+                alert("Please enter values in all fields");
+        })
+    </script>
+</body>
+
+</html>
