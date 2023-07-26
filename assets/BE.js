@@ -159,7 +159,7 @@ function BEIndexPageFunctions(videoLists) {
         var video_Holder = document.querySelector("#video_Holder");
         var count = 0;
         for (let index = startingPos; index < Vid_Lists.length; index++) {
-            if (count == 5) {
+            if (count == 10) {
                 break;
             }
             var VideoEle = `
