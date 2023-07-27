@@ -44,7 +44,7 @@ function IndexStarterFunctions() {
             showSelfImprovementVids = true;
         }
 
-        if (videoURL != "") {
+        if (videoURL != "" || videoURL != null) {
             triggerModal();
             document.querySelector("#modal .content").innerHTML = "";
             document.querySelector("#modal .content").innerHTML = `
