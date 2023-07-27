@@ -5,6 +5,7 @@ https://img.youtube.com/vi/rLgGw4J3Fi8/hqdefault.jpg
 https://img.youtube.com/vi/rLgGw4J3Fi8/sddefault.jpg
 https://img.youtube.com/vi/rLgGw4J3Fi8/maxresdefault.jpg
 */
+var showSelfImprovementVids = false;
 class GSheetAPICall {
 
     constructor() {
@@ -86,7 +87,6 @@ function BEIndexPageFunctions(videoLists) {
             //console.log(element.children[2].innerText);
             allCategoriesText += element.children[2].innerText.trim().replaceAll("\n", ",") + ",";
         });
-
 
         allCategoriesText = allCategoriesText.substr(0, allCategoriesText.length - 1);
 
@@ -191,26 +191,33 @@ function BEIndexPageFunctions(videoLists) {
         var ModifiedArr = new Array();
         var tempArr2 = arr;
 
-        var randHighlight = Math.floor(Math.random() * (0 - tempArr2.length) + tempArr2.length);
-        var highLightHolder = document.querySelector(".highlight");
-        highLightHolder.insertAdjacentHTML("beforeend", `
-            <div id="${tempArr2[randHighlight][0]}" data-vidValue="${tempArr2[randHighlight][2]}"
-                class="vid cursor-pointer w-[100%] rounded-lg border flex justify-center flex-col bg-[--vidBgColor] pb-3">
-                <img src="https://img.youtube.com/vi/${tempArr2[randHighlight][2]}/maxresdefault.jpg" class="thumb h-[250px] object-cover w-full rounded-tl-lg rounded-tr-lg">
-                <p class="p-3 text-[12px]">${tempArr2[randHighlight][1]}</p>
-                <div class="flex gap-2 flex-wrap ml-3">
-                    ${getSingleTagElement(tempArr2[randHighlight][3].split(","))}
-                </div>
-            </div>`);
 
         while (tempArr2.length != 0) {
             var randIndex = Math.floor(Math.random() * (0 - tempArr2.length) + tempArr2.length);
-            ModifiedArr.push(tempArr2[randIndex]);
+            if (showSelfImprovementVids == false) {
+                if (!tempArr2[randIndex][3].toLowerCase().includes("self improvement"))
+                    ModifiedArr.push(tempArr2[randIndex]);
+            }
+            else {
+                if (tempArr2[randIndex][3].toLowerCase().includes("self improvement"))
+                    ModifiedArr.push(tempArr2[randIndex]);
+            }
             tempArr2.splice(randIndex, 1);
-            //console.log(ModifiedArr.length);
-
         }
-        //console.log(ModifiedArr);
+        console.log(ModifiedArr);
+
+        var randHighlight = Math.floor(Math.random() * (0 - ModifiedArr.length) + ModifiedArr.length);
+        var highLightHolder = document.querySelector(".highlight");
+        highLightHolder.insertAdjacentHTML("beforeend", `
+            <div id="${ModifiedArr[randHighlight][0]}" data-vidValue="${ModifiedArr[randHighlight][2]}"
+                class="vid cursor-pointer w-[100%] rounded-lg border flex justify-center flex-col bg-[--vidBgColor] pb-3">
+                <img src="https://img.youtube.com/vi/${ModifiedArr[randHighlight][2]}/maxresdefault.jpg" class="thumb h-[250px] object-cover w-full rounded-tl-lg rounded-tr-lg">
+                <p class="p-3 text-[12px]">${ModifiedArr[randHighlight][1]}</p>
+                <div class="flex gap-2 flex-wrap ml-3">
+                    ${getSingleTagElement(ModifiedArr[randHighlight][3].split(","))}
+                </div>
+            </div>`);
+
         return ModifiedArr;
     }
     var MainvideoLists = randomSelector(videoLists);

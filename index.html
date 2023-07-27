@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="./assets/stylesheet.css">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <style>
+        * {
+            transition: all 0.5s ease-in-out;
+            scroll-behavior: smooth;
+        }
+
         .modal .closeBtn {
             transition: .5s;
         }
@@ -40,33 +45,33 @@
             <div class="holder flex justify-center items-center w-full px-4 py-2">
                 <nav class="flex items-center justify-around w-full">
                     <h2 class="font-bold text-[20px]">
-                        YT Video Collections
+                        YT Collections
                     </h2>
                     <ul>
-                        <li>About</li>
+                        <li class="hidden">About</li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main class="flex justify-center items-center w-full">
             <div class="holder flex justify-center items-center w-full px-4 py-2 flex-col">
-                <div class="highlight flex justify-center items-center flex-wrap my-3 px-2">
+                <div class="highlight w-full lg:w-1/2 flex justify-center items-center flex-wrap my-3 px-2">
 
                 </div>
                 <div id="vid-category" class="vid-category flex justify-center gap-3 items-center flex-wrap my-3 px-2">
-                    <!--<span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Funny</span>
+                    <!-- <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Funny</span>
                     <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Inspirtional</span> -
                     <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Songs</span>
                     <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Tutorials</span>
                     <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Songs</span>
                     <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Songs</span>
-                    <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Songs</span>-->
+                    <span class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Songs</span> -->
                 </div>
 
                 <div id="video_Holder"
                     class="wrapper w-full flex justify-center gap-3 items-center flex-wrap my-3 px-2">
 
-                    <!--<div
+                    <!-- <div
                         class="vid cursor-pointer w-[45%] md:w-[30%] lg:w-[20%] rounded-lg border flex justify-center flex-col bg-[--vidBgColor] pb-3">
                         <img src="2.JPG" alt="" class="thumb h-[180px] object-cover w-full rounded-tl-lg rounded-tr-lg">
                         <p class="p-3 text-[12px]">Video Title Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -74,7 +79,7 @@
                         <div class="flex gap-2 flex-wrap ml-3">
                             <span class="p-3 text-[10px] bg-[#4552a1] rounded-md py-[3px] px-[5px]">Alpha</span>
                         </div>
-                    </div>-->
+                    </div> -->
 
                 </div>
                 <button id="loadMore" class="bg-[--vidBgColor] shadow-xl cursor-pointer rounded p-1">Load More</button>
@@ -87,11 +92,7 @@
                 <span></span>
                 <span></span>
             </div>
-            <div class="content">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/rLgGw4J3Fi8"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
+            <div class="content flex justify-center w-full lg:w-[700px]">
             </div>
 
         </div>
@@ -106,6 +107,7 @@
     <script src="assets/BE.js"></script>
     <script>
         // BEIndexPageFunctions();
+        var FetchedData;
         IndexStarterFunctions();
         var APIObj = new GSheetAPICall();
         APIObj.GSheetAPICall_GetAll();

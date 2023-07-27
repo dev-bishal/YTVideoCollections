@@ -1,14 +1,13 @@
 function indexPageFunctions() {
-    var modalElement = document.querySelector("#modal");
     var modalCloseBtn = document.querySelector(".closeBtn");
     var allVideoElements = document.querySelectorAll(".vid");
 
     allVideoElements.forEach(VideoElement => {
         VideoElement.addEventListener("click", () => {
-            hideModal();
+            triggerModal();
             document.querySelector("#modal .content").innerHTML = "";
             document.querySelector("#modal .content").innerHTML = `
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/${VideoElement.getAttribute("data-vidValue")}"
+            <iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${VideoElement.getAttribute("data-vidValue")}"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>`;
@@ -16,18 +15,18 @@ function indexPageFunctions() {
     });
 
     modalCloseBtn.addEventListener("click", () => {
-        hideModal();
+        triggerModal();
     })
-
-    const hideModal = () => {
-        if (modalElement.classList.contains("flex")) {
-            modalElement.classList.add("hidden");
-            modalElement.classList.remove("flex");
-        }
-        else {
-            modalElement.classList.remove("hidden");
-            modalElement.classList.add("flex");
-        }
+}
+const triggerModal = () => {
+    var modalElement = document.querySelector("#modal");
+    if (modalElement.classList.contains("flex")) {
+        modalElement.classList.add("hidden");
+        modalElement.classList.remove("flex");
+    }
+    else {
+        modalElement.classList.remove("hidden");
+        modalElement.classList.add("flex");
     }
 }
 
@@ -35,20 +34,36 @@ function IndexStarterFunctions() {
     const readParameter = () => {
         const queryString = window.location.search;
         const params = new URLSearchParams(queryString);
+        var videoType;
         try {
-            const userType = params.get('admin');
-            const vid = params.get('age');
+            videoType = params.get('vType');
+            videoURL = params.get('vURL');
         } catch (error) { }
 
-        if (userType == "true") {
-
+        if (videoType == "Self") {
+            showSelfImprovementVids = true;
         }
+
+        if (videoURL != "") {
+            triggerModal();
+            document.querySelector("#modal .content").innerHTML = "";
+            document.querySelector("#modal .content").innerHTML = `
+            <iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${videoURL}"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>`;
+        }
+
     }
+    readParameter();
+
+    document.getElementById("scrollToTop").addEventListener("click", () => {
+        window.scrollTo(0, 0);
+    })
 }
 
 function adminPageFunctions() {
     var fetchBtn = document.querySelector("#fetchBtn");
-    var saveBtn = document.querySelector("#saveBtn");
     var previewElement = document.querySelector(".highlight .vid");
 
 
@@ -76,7 +91,7 @@ function adminPageFunctions() {
             vidUrl = vidUrl.replace("?feature=share", "");
 
         var iframeElement = `
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/${vidUrl}"
+        <iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${vidUrl}"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen></iframe>`;
