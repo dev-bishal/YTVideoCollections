@@ -43,8 +43,8 @@ function IndexStarterFunctions() {
         if (videoType == "Self") {
             showSelfImprovementVids = true;
         }
-
-        if (videoURL != "" || videoURL != null) {
+        if (videoURL == "" || videoURL == null) { }
+        else {
             triggerModal();
             document.querySelector("#modal .content").innerHTML = "";
             document.querySelector("#modal .content").innerHTML = `
