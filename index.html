@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <link rel="stylesheet" href="./assets/stylesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <style>
         * {
@@ -86,15 +87,15 @@
             </div>
         </main>
         <div id="modal"
-            class="modal top-0 left-0 fixed w-full h-screen bg-[#000000ed] hidden justify-center items-center z-10">
+            class="modal top-0 left-0 fixed w-full h-screen bg-[#000000ed] hidden justify-center items-center flex-col z-10">
             <div
                 class="closeBtn h-[40px] w-[40px] flex justify-center items-center cursor-pointer absolute top-0 right-0 hover:bg-[#c50606]">
                 <span></span>
                 <span></span>
             </div>
-            <div class="content flex justify-center w-full lg:w-[700px]">
+            <div class="content flex items-center justify-center flex-col w-full lg:w-[700px]">
             </div>
-
+            <i id="maxiBtn" class="fa-solid fa-maximize cursor-pointer"></i>
         </div>
         <footer class="flex justify-center items-center w-full mb-3">
             <p class="py-2">Made with ❤ by Bishal Biswas.</p>

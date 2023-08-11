@@ -5,29 +5,24 @@ function indexPageFunctions() {
     allVideoElements.forEach(VideoElement => {
         VideoElement.addEventListener("click", () => {
             triggerModal();
-            document.querySelector("#modal .content").innerHTML = "";
-            document.querySelector("#modal .content").innerHTML = `
-            <iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${VideoElement.getAttribute("data-vidValue")}"
+            document.querySelector("#modal .content").insertAdjacentHTML("afterbegin", 
+            `<iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${videoURL}"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>`;
+                    allowfullscreen></iframe>`);
         })
     });
 
     modalCloseBtn.addEventListener("click", () => {
         triggerModal();
+        document.querySelector("#modal .content").innerHTML = "";
     })
 }
+
+var modalElement;
 const triggerModal = () => {
-    var modalElement = document.querySelector("#modal");
-    if (modalElement.classList.contains("flex")) {
-        modalElement.classList.add("hidden");
-        modalElement.classList.remove("flex");
-    }
-    else {
-        modalElement.classList.remove("hidden");
-        modalElement.classList.add("flex");
-    }
+    document.querySelector("#modal").classList.toggle("hidden");
+    document.querySelector("#modal").classList.toggle("flex");
 }
 
 function IndexStarterFunctions() {
@@ -46,14 +41,12 @@ function IndexStarterFunctions() {
         if (videoURL == "" || videoURL == null) { }
         else {
             triggerModal();
-            document.querySelector("#modal .content").innerHTML = "";
-            document.querySelector("#modal .content").innerHTML = `
-            <iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${videoURL}"
+            document.querySelector("#modal .content").insertAdjacentHTML("afterbegin", 
+            `<iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${videoURL}"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>`;
+                    allowfullscreen></iframe>`);
         }
-
     }
     readParameter();
 
@@ -61,6 +54,14 @@ function IndexStarterFunctions() {
         window.scrollTo(0, 0);
     })
 }
+
+var maximizeButton = document.querySelector("#maxiBtn");
+maximizeButton.addEventListener("click", () => {
+    console.log("Maximized Clicked")
+    document.querySelector("#modal .content").style.width = "auto";
+    document.querySelector("#modal .content iframe").style.width = "1000px";
+    document.querySelector("#modal .content iframe").style.height = "550px";
+})
 
 function adminPageFunctions() {
     var fetchBtn = document.querySelector("#fetchBtn");

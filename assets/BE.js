@@ -155,6 +155,7 @@ function BEIndexPageFunctions(videoLists) {
         }
         return arr;
     }
+    
     const loadVideos = (Vid_Lists, startingPos) => {
         var video_Holder = document.querySelector("#video_Holder");
         var count = 0;
