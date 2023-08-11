@@ -855,3 +855,12 @@ video {
     width: 700px;
   }
 }
+
+.content.zoom{
+  width :auto;
+}
+
+.content iframe.zoom{
+  width : 1000px;
+  height: 550px;
+}

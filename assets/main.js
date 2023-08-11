@@ -5,6 +5,7 @@ function indexPageFunctions() {
     allVideoElements.forEach(VideoElement => {
         VideoElement.addEventListener("click", () => {
             triggerModal();
+            videoURL = VideoElement.getAttribute("data-vidvalue");
             document.querySelector("#modal .content").insertAdjacentHTML("afterbegin", 
             `<iframe class="w-full lg:w-[560px]" width="560" height="315" src="https://www.youtube.com/embed/${videoURL}"
                     title="YouTube video player" frameborder="0"
@@ -25,6 +26,7 @@ const triggerModal = () => {
     document.querySelector("#modal").classList.toggle("flex");
 }
 
+//Triggered when Page is loaded with URL Paramter
 function IndexStarterFunctions() {
     const readParameter = () => {
         const queryString = window.location.search;
@@ -57,10 +59,8 @@ function IndexStarterFunctions() {
 
 var maximizeButton = document.querySelector("#maxiBtn");
 maximizeButton.addEventListener("click", () => {
-    console.log("Maximized Clicked")
-    document.querySelector("#modal .content").style.width = "auto";
-    document.querySelector("#modal .content iframe").style.width = "1000px";
-    document.querySelector("#modal .content iframe").style.height = "550px";
+    document.querySelector("#modal .content").classList.toggle("zoom");
+    document.querySelector("#modal .content iframe").classList.toggle("zoom");
 })
 
 function adminPageFunctions() {
